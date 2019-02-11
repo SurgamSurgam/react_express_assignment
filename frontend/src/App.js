@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Route, Switch, Link, withRouter } from "react-router-dom";
 import { Users } from "./Users.js";
-import { SingleUser } from "./SingleUser.js";
+import  SingleUser  from "./SingleUser.js";
 import { AddUser } from "./AddUser.js";
 
 class App extends Component {
@@ -10,7 +10,6 @@ class App extends Component {
     usersData: [],
     formSubmitted: false,
     newUser: { username: "", phonenumber: "", email: "", password: "" },
-    chosenUser: {},
     editing: null
   };
 
@@ -89,12 +88,9 @@ class App extends Component {
   handleEditSubmit = (e, id)=> {
     e.preventDefault();
 
-    axios.patch(`/users/${id}`, {
-      username: this.state.newUser.username,
-      phonenumber: this.state.newUser.phonenumber,
-      email: this.state.newUser.email,
-      password: this.state.newUser.password
-    })
+    axios.patch(`/users/${id}`,
+      this.state.newUser
+    )
     .then(()=>{
       this.getAllUsers();
     })
@@ -106,13 +102,7 @@ class App extends Component {
     });
   };
 
-// USER must be able to update 1 field keeping other data... On patch i'm updatin with empty strings
-  updateChosenUser = (user) => {
-    let clone = Object.assign({}, user);
-    this.setState({
-      chosenUser: clone
-    })
-  }
+
   render() {
     console.log("PROPS", this.props);
     console.log("STATE", this.state);
@@ -162,6 +152,8 @@ class App extends Component {
                 handleOnChange={this.handleOnChange}
                 handleEditSubmit={this.handleEditSubmit}
                 updateChosenUser={this.updateChosenUser}
+                getAllUsers={this.getAllUsers}
+                resetState={this.resetState}
               />
             )}
           />

@@ -38,7 +38,7 @@ const editUser = (req, res, next) => {
     queryStringArray.push(key + "=${" + key + "}");
   });
   let queryString = queryStringArray.join(", ");
-  console.log(queryString, "hii");
+  // console.log(queryString, "hii");
   if (req.body.username && req.body.username.toLowerCase() === "null") {
     req.body.username = null;
   }
