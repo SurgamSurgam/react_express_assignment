@@ -1,0 +1,110 @@
+body {
+  min-height: 700px;
+  width: 1440px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  /* justify-content: center; */
+}
+
+nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.app > h1 {
+  text-align: center;
+}
+
+.allUsersUl > li {
+  cursor: pointer;
+  border: 2px outset;
+  padding: 10px;
+  margin: 20px;
+  list-style-type: none;
+}
+
+.singleUserDiv {
+  display: flex;
+  flex-direction: column;
+}
+
+.singleUserUl > li {
+  border: 2px outset;
+  padding: 10px;
+  list-style-type: none;
+}
+
+.singleUserUl {
+  border: 2px ridge;
+  padding: 10px;
+}
+
+
+button {
+  cursor: pointer;
+  padding: 7px;
+  align-self: center;
+  width: 150px;
+}
+
+input[type=submit] {
+  cursor: pointer;
+  align-self: center;
+  width: 150px;
+  background: lightgray;
+  font-size: 14px;
+}
+
+input[type=submit]:hover {
+  color: red;
+  transition: 0.5s;
+}
+
+button:hover {
+  color: red;
+  transition: 0.5s;
+}
+
+form {
+  border: 2px outset;
+  padding: 10px;
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+form > input {
+  height: 25px;
+  padding-left: 20px;
+  background: whitesmoke;
+  border: 2px groove;
+  font-size: 14px;
+}
+
+.editedUl > li > input {
+  height: 25px;
+  padding-left: 20px;
+  background: whitesmoke;
+  border: 2px groove;
+  font-size: 14px;
+  width: 450px;
+  margin-right: 50px;
+}
+
+.editedUl > li {
+  display: flex;
+  justify-content: space-between;
+}
+
+
+#root {
+  width: 1000px;
+}
+
+.singleUserButtons {
+  display: flex;
+  justify-content: space-around;
+}
