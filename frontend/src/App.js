@@ -19,7 +19,7 @@ class App extends Component {
   componentDidMount() {
     this.getAllUsers();
   }
-  
+
   getAllUsers = async (numUsers=2, offsetBy=0) => {
     let response = await axios.get("/users", {
     params: {
@@ -139,8 +139,6 @@ class App extends Component {
         <nav>
           <Link to="/">Home</Link>
           <Link to="/users">All Users</Link>
-          {/*<Link to="/users/:id">User</Link>*/}
-          {/* <Link to="/users/:id/edit">Edit User</Link> */}
           <Link to="/users/add">Add User</Link>
         </nav>
         <Switch>
