@@ -1,7 +1,7 @@
 const { db } = require("../index.js");
 
 const getAllUsers = (req, res, next) => {
-  db.any("SELECT * FROM users ORDER BY id")
+  db.any(`SELECT * FROM users ORDER BY id DESC LIMIT ${+req.query.limit} OFFSET ${+req.query.offset}`)
     .then(users => {
       res.status(200).json({
         status: "success",

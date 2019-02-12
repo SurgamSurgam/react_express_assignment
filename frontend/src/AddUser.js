@@ -1,10 +1,12 @@
 import React from "react";
 
 export const AddUser = props => {
-  let { handleOnChange, handleOnSubmit, newUser } = props;
+  let { handleOnChange, handleOnSubmit, newUser, errorMessage } = props;
+
   return (
     <div className="formDiv">
       <form onSubmit={handleOnSubmit}>
+        {errorMessage ? 'Error: Duplicate Fields': null}
         <input
           type="text"
           name="username"
@@ -14,6 +16,7 @@ export const AddUser = props => {
           required
         />
         <br />
+        {errorMessage ? ('Error: Duplicate Fields') : null}
         <input
           type="text"
           name="phonenumber"

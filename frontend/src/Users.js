@@ -1,11 +1,15 @@
 import React from "react";
+import Search from './Search.js';
 
-export const Users = ({ usersData, handleOnClick, getAllUsers, formSubmitted }) => {
+export const Users = ({ usersData, handleOnClick, getAllUsers, formSubmitted, errorMessage, resetState, numUserDisplayed, offsetBy }) => {
 
   if (formSubmitted) {
     getAllUsers();
   }
 
+  if (errorMessage) {
+    resetState();
+  }
   let usersDataMapped = usersData.map(user => {
     return (
       <li key={user.id} onClick={handleOnClick} value={user.id}>
@@ -16,11 +20,16 @@ export const Users = ({ usersData, handleOnClick, getAllUsers, formSubmitted }) 
     );
   });
 
+  console.log(usersDataMapped);
   return (
     <div className="allUsersDiv">
       <h2>All Users</h2>
-      <p>For more information click on a user:</p>
+
+      <Search usersData={usersData} usersDataMapped={usersDataMapped} handleOnClick={handleOnClick}/>
       <ul className="allUsersUl">{usersDataMapped}</ul>
+      <div className='buttonNumOfUsersDiv'>
+        <button onClick={()=>getAllUsers(numUserDisplayed, offsetBy)}>Get {numUserDisplayed} more users</button>
+      </div>
     </div>
   );
 };

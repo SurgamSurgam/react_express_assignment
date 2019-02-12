@@ -108,3 +108,26 @@ form > input {
   display: flex;
   justify-content: space-around;
 }
+
+.foundInfoDiv {
+  border: 2px outset red;
+  padding: 10px;
+  list-style-type: none;
+  font-size: 18px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.foundInfoDiv > li {
+  margin: 5px;
+}
+
+.searchDiv > h1 {
+  font-size: 20px;
+  text-align: center;
+}
+
+.buttonNumOfUsersDiv {
+  text-align: center;
+  margin-bottom: 50px;
+}

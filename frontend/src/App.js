@@ -10,18 +10,28 @@ class App extends Component {
     usersData: [],
     formSubmitted: false,
     newUser: { username: "", phonenumber: "", email: "", password: "" },
-    editing: null
+    editing: null,
+    errorMessage: '',
+    numUserDisplayed: 2,
+    offsetBy: 0,
   };
 
   componentDidMount() {
     this.getAllUsers();
   }
-  //Took it out of CDM so I can call it again to show info with updated User
-  getAllUsers = async () => {
-    let response = await axios.get("/users");
+  
+  getAllUsers = async (numUsers=2, offsetBy=0) => {
+    let response = await axios.get("/users", {
+    params: {
+      limit: numUsers,
+      offset: offsetBy
+    }
+  });
     this.setState({
       usersData: response.data.users,
-      formSubmitted: false
+      formSubmitted: false,
+      offsetBy: response.data.users[0].id <= 1  || response.data.users[1].id <= 1 ? 0 : this.state.offsetBy + 2,
+      numUserDisplayed: response.data.users[0].id <= 1 || response.data.users[1].id <= 1 ? 2 : this.state.numUserDisplayed,
     });
   };
 
@@ -46,8 +56,23 @@ class App extends Component {
         email: this.state.newUser.email,
         password: this.state.newUser.password
       })
+      .then(()=>{
+        this.getAllUsers();
+      })
+      .then(()=>{
+        this.resetState()
+      })
+      .then(()=> {
+        this.props.history.push(`/users`);
+        this.setState({
+          errorMessage:''
+        })
+      })
       .catch(error => {
         console.log("ERROR", error);
+        this.setState({
+          errorMessage: error.message
+        })
       });
   };
 
@@ -55,7 +80,8 @@ class App extends Component {
     this.setState({
       formSubmitted: false,
       newUser: { ...this.state.newUser, username: "", phonenumber: "", email: "", password: "" },
-      editing: null
+      editing: null,
+      errorMessage:''
     });
   };
 
@@ -106,6 +132,7 @@ class App extends Component {
   render() {
     console.log("PROPS", this.props);
     console.log("STATE", this.state);
+
     return (
       <div className="app">
         <h1>Clone Users App</h1>
@@ -126,6 +153,10 @@ class App extends Component {
                 handleOnClick={this.handleOnClick}
                 getAllUsers={this.getAllUsers}
                 formSubmitted={this.state.formSubmitted}
+                errorMessage={this.state.errorMessage}
+                resetState={this.resetState}
+                numUserDisplayed={this.state.numUserDisplayed}
+                offsetBy={this.state.offsetBy}
               />
             )}
           />
@@ -138,6 +169,7 @@ class App extends Component {
                 handleOnSubmit={this.handleOnSubmit}
                 newUser={this.state.newUser}
                 handleOnChange={this.handleOnChange}
+                errorMessage={this.state.errorMessage}
               />
             )}
           />
